@@ -1,0 +1,189 @@
+https://medium.com/@saiyampathak
+Twitter: @saiyampathak
+
+1) From Monolothic and micro service architecture
+
+You cannot work simultaneously work on the 5 modules. lets say you are writing in c language then c is considered for all the project.
+
+Benefits
+1)Simple to develop, test, deploy and scale.
+2)Easy to scale the whole application.
+3)Easy to bundle because all components are packed into the bundles.
+4)It is for application purpose only not for hardware.
+
+Disadvantage
+1)Very diffficult to maintain
+2)One component failure will cause the whole system to fail.
+3)Very to difficult to understand and create the patches for monolithic application.
+4)Adapting to new technology is very challenge.
+
+
+micro services helps to provide upgradation of monolthic architecture
+It is processed through API GateWay.
+
+Benefits of microservices
+1)Can use the latest technologies
+2)One component failure will not cause entire system downtimes.
+3)No need to scale the whole system.
+
+ Workflow of docker- build ship run (docker logo)
+
+Docker is cross platform in nature and freindliness System Admin and Developers.
+
+1)Standarized packaging for softaware and dependencies.
+2)Isolate app from each other
+3)Docker hub, Docker cloud, Docker Store(SaaS)
+Git Server- Docker Container-Build Server(Docker image)-Docker Registry-Production-Deployment.
+There is a myth that Docker is run on the basis of VM.
+
+Docker Vocabulary
+
+Docker Image
+Docker Container
+Docker Engine
+Registry service
+
+Image Layers
+
+_______________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
+----------------------------------------------------------------------------------------------------------------------------KUBERNETES--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+> 10 thousand of containesrs and how to manage it (kubernetes orchaterate and manage all the containers).  >) auto scaling - one container is down , it will regenerate or mirror the log of the container.
+> Note(Auto) balancing - It takes care in which network to run.
+> Orchestrate System- Scheduling(CPU,MEMORY) and managing the containers. Handle the machine failure. It shows the current status. It can run N numbers of containers. Ex- Mesos,Docker,Kubernetes,Nomad
+
+>Kubernetes- It is a open source system for automating deployment,scaling and containerized applications. It(K8s) coordinates is highly available cluster of instance and connected to work as a single unit. 
+K8s abstraction or primitives-
+pods  
+nodes
+delpoyment
+services
+namespaces-unique identifier
+
+> Basic Architecture of kubernetes-   Master node -           etcd - which pod is running(data is stored)        kubelete controller manager- nodes(vm) running they will be connected to master. It is also responsible for the communication between the master and nodes/pods.
+kubeScheduler -  you have to run this program through api serverand this api will find the best node to workload in the cluster.
+pod - smallest atomic unit of kubernetic cluster.
+all the things that we define run in the declarative format
+cloud controller manager  - it control the cloud performing services.
+Api server can talk to pod only and all the practices can talk to api server only.
+Inside 1node  you can run 110 pods.
+node limit of 5000 cluster.
+yaml file to run the workload(can be multi services) such as nodes, pods etc.
+max 2 container run in the pod. But it can be changed according to various statement.
+Kube proxy- manges the network load.
+> brain of K8s - Master
+Nodes - running containers/pods
+
+
+_____________________________________________________________________________KUBERNETES DEMO________________________________________________________________________________
+
+K3s is an open-source, lightweight Kubernetes distribution by Rancher that was introduced this year and has gained huge popularity.
+sig-contribix - it will tell you how you can push to open community.
+
+
+Pod
+Deployment
+Replication
+Services
+Rback for security
+Daemon
+Kube ctl
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+labs.play-with-k8s .com
+https://www.katacoda.com/courses/kubernetes/playground
+
+master
+kubectl get nodes
+
+ 
+
+node
+kubectl get nodes
+docker ps
+
+
+
+pod - interactive(kubectl command) (declarartive mode(yml)
+
+> kubectl run nginx --image=nginx
+> kubectl get pods
+> kubectl describe pod nginx -7db9fccd9b-mk8dv
+> kubectl get pods --all-namespaces- It gives the default namespace that we have created.(kube proxy) = every one node one proxy is always running.
+> kubectl get ns(namespace)
+> kubectl create ns test
+> kubectl get all -n kube-system- to list all the resources which are deployed in namespace in the kube system.
+> kubectl get all -n kube-test
+> kubectl run nginx --image=nginx -n test(namespace)
+> kubectl get pods
+> kubectl get pods -n test(default namespace)
+> kubectl get deploy -n test(created namespace they are irrevelant of the defdault namespace).
+>vi nginx.yaml
+>apiVersion: v1
+kind: Pod
+metadata: 
+ name:mypod
+spec:
+ containers:
+  - name: mycontainer
+    image: nginx
+>kubectl apply -f nginx.yaml
+>create- for the first time whrn you create and apply -to do changes and deploy
+>We want self healing capacity then only kubernetes provide it, they created an object called deployment. I want 2 replica of this pod and kubernetes will assure you that 2 pods are running.
+you hace to create 2 deployment 1 and 2
+> vi deploy1.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.15.4
+        ports:
+        - containerPort: 80(It is container port)
+
+>kubectl run nginx --image=nignx -n test
+>kubectl execbusybox curl  IP
+>kubectl get pods -o wide
+>vi service.yaml
+
+there are 3 types of service(constant ips are there)
+1)Load balancer is used and also have security constraints
+> Daemon - to run one pod on all other nodes.
+Rback for security and it has different roles of band.
+Kubernetes security slide
+
+>kubetcl get deploy -n test
+>kubectl get pods
+>kubectl delete pod nginx -podname
+>kubectl get pods
+>vi deploy2.yaml
+>apiVersion: v1
+kind: Pod
+metadata:
+  name: busybox
+spec:
+  containers:
+  - name: busybox
+    image: radial/busyboxplus:curl
+    args:
+    - sleep
+    - "1000"
+
+
+

@@ -1,0 +1,43 @@
+docker run hello-world
+docker start service
+docker ps - list all the running container
+docker container ls- same as docker ps
+docker ps -a = shows the 5 min ago the container was there and now it has gone
+docker images - list all the downloaded images from the registrydocker
+docker inspect fce(latest image first three word)
+docker image ls
+docker pull alpine:3.6(or 3.8,3.7)- downloading the images from the docker registry.
+3.6(or 3.8,3.7) -These are the known tags.
+docker pull ubuntu
+docker images --no-trunc-it gives you the complete ssh key pair.
+docker inspect ubuntu
+search for image in the group of the image- docker images --filter=reference='alpine'(alpine=ubuntu)
+command for running the image and it gives you the new address - docker run -itd alpine sh
+alpine- it is a flavor of linux
+itd- iteracted terminal detached mode
+docker run -it alpine sh- It gives the shell scripting.
+docker attach (0cf)-1st three word of the container that will go into the container. then after exit the container dies because it has not command to run.
+docker run -d alpine sh- it gives you the container ids
+ctrl pq - To get exit without killing the container.
+docker login
+apk upgrade - to upgrade(in shell scripting)
+apk add git (same in shell scripting)
+docker stop conatiner- letter 3 word as amny as
+docker rm  (90f)- letter 3 word as amny as
+docker exec -it container address bash 
+
+vi Dockerfile -
+cat Dockerfile
+{docker build -t parth
+FROM alpine
+RUN apk upgrade &&  apk add git}
+docker push parth1999/alpine:2.0
+docker pull parth1999/alpine
+docker run -it -v /root:/tmp alpine sh(# cd /tmp ls 
+mkdir parth exit)
+docker network ls
+docker create network parth
+cd /var/lib/docker/
+cd co
+
+
